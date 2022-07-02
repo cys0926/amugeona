@@ -6,11 +6,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Text('DK'),
-        ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('데이트 어플'),
+      ),
+      body: Center(
+        child: Text('데이트 어플'),
       ),
     );
   }

@@ -7,4 +7,3 @@ void main() {
       home: HomeScreen(),
     ),
   );
-}

@@ -18,7 +18,7 @@ class _calendarPageState extends State<calendarPage> {
         color: PRIMARY_COLOR,
         child: TextButton(
           onPressed: PopButton,
-          child: Text('완료'),
+          child: Text('OK'),
           style: TextButton.styleFrom(
             primary: Colors.white,
           ),

@@ -10,6 +10,21 @@ class Calender extends StatelessWidget {
       focusedDay: DateTime.now(),
       firstDay: DateTime(2000),
       lastDay: DateTime(2100),
+      headerStyle: const HeaderStyle(
+        titleTextStyle: TextStyle(color: Colors.black),
+      ),
+      daysOfWeekStyle: const DaysOfWeekStyle(
+        weekdayStyle: TextStyle(color: Colors.purple),
+        weekendStyle: TextStyle(color: Colors.redAccent),
+      ),
+      calendarStyle: const CalendarStyle(
+          selectedTextStyle: TextStyle(
+            color: Colors.indigo,
+            fontSize: 30.0,
+          ),
+          todayTextStyle: TextStyle(color: Colors.teal),
+          weekendTextStyle: TextStyle(color: Colors.redAccent),
+      defaultTextStyle: TextStyle(color: Colors.black)),
     );
   }
 }

@@ -1,9 +1,8 @@
 import 'package:amugeona/const/colors.dart';
+import 'package:amugeona/const/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
-
 import '../calendar_scheduler/calendar_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final selectedDate = DateTime(
+  DateTime selectedDate = DateTime(
     DateTime.now().year,
     DateTime.now().month,
     DateTime.now().day,
@@ -33,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onHeartPressed: onHeartPressed,
             onPicturePressed: onPicturePressed,
             onDatePressed: onDatePressed,
+            selectedDate: selectedDate,
           ),
         ],
       ),
@@ -40,30 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   onHeartPressed() async {
-    const CalendarDateTextStyle = TextStyle(
-        fontSize: 16.0,
-        color: Colors.black54,
-        fontFamily: "Sunflower",
-        fontWeight: FontWeight.w500);
-    const CalendarMainTextStyle = TextStyle(
-      fontSize: 30.0,
-      color: Colors.white,
-      fontWeight: FontWeight.w500,
-      fontFamily: "Sunflower",
-    );
-    const CalendarSubTextStyle = TextStyle(
-      fontSize: 25.0,
-      color: PRIMARY_COLOR,
-      fontFamily: "Sunflower",
-      fontWeight: FontWeight.w700,
-    );
-    const CalendarButtonTextStyle = TextStyle(
-      fontSize: 20.0,
-      color: Colors.black54,
-      fontWeight: FontWeight.w700,
-      fontFamily: "Sunflower",
-    );
-    DateTime? selectedDate = await showRoundedDatePicker(
+    DateTime? newSelectedDate = await showRoundedDatePicker(
       context: context,
       fontFamily: "Sunflower",
       initialDate: DateTime.now(),
@@ -108,6 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+    setState(() {
+      selectedDate = newSelectedDate!;
+    });
   }
 
   void onPicturePressed() {
@@ -137,11 +117,13 @@ class _TopPart extends StatelessWidget {
   final VoidCallback onDatePressed;
   final VoidCallback onPicturePressed;
   final VoidCallback onHeartPressed;
+  final DateTime selectedDate;
 
   const _TopPart({
     required this.onPicturePressed,
     required this.onDatePressed,
     required this.onHeartPressed,
+    required this.selectedDate,
     Key? key,
   }) : super(key: key);
 
@@ -162,11 +144,18 @@ class _TopPart extends StatelessWidget {
                 onPressed: onHeartPressed,
                 iconData: Icons.favorite,
               ),
-              Text('D+${DateTime(
-                    now.year,
-                    now.month,
-                    now.day,
-                  ).difference(DateTime.now()).inDays + 1}'),
+              Text(
+                'D+${DateTime(
+                      now.year,
+                      now.month,
+                      now.day,
+                    ).difference(selectedDate).inDays + 1}',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
           Row(

@@ -40,9 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   onHeartPressed() async {
-    DateTime newSelectedDate;
-
-    DateTime? selectedDate = await showRoundedDatePicker(
+    DateTime? newSelectedDate = await showRoundedDatePicker(
       context: context,
       fontFamily: "Sunflower",
       initialDate: DateTime.now(),
@@ -87,7 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-    return newSelectedDate = selectedDate!;
+    setState(() {
+      selectedDate = newSelectedDate!;
+    });
   }
 
   void onPicturePressed() {
@@ -147,11 +147,18 @@ class _TopPart extends StatelessWidget {
                 onPressed: onHeartPressed,
                 iconData: Icons.favorite,
               ),
-              Text('D+${DateTime(
-                    now.year,
-                    now.month,
-                    now.day,
-                  ).difference(selectedDate).inDays + 1}'),
+              Text(
+                'D+${DateTime(
+                      now.year,
+                      now.month,
+                      now.day,
+                    ).difference(selectedDate).inDays + 1}',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
           Row(

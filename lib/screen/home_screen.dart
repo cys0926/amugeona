@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         textStyleDayButton: CalendarMainTextStyle,
         textStyleYearButton: CalendarMainTextStyle,
         paddingDateYearHeader:
-            const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
         textStyleMonthYearHeader: CalendarSubTextStyle,
         sizeArrow: 20,
         colorArrowNext: PRIMARY_COLOR,
@@ -95,13 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onDatePressed() {
-    print('onDatePressed');
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => calendarPage()),
-    );
+   Get.to(calendarPage());
   }
 }
+
 
 class _MainPicture extends StatelessWidget {
   const _MainPicture({Key? key}) : super(key: key);

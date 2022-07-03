@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../calendar_scheduler/calendar_page.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     Key? key,
@@ -113,6 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onDatePressed() {
     print('onDatePressed');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => calendarPage()),
+    );
   }
 }
 

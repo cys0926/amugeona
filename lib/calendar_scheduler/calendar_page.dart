@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../component/calender.dart';
 
-class calenderPage extends StatefulWidget {
-  const calenderPage({Key? key}) : super(key: key);
+class calendarPage extends StatefulWidget {
+  const calendarPage({Key? key}) : super(key: key);
 
   @override
-  State<calenderPage> createState() => _calenderPageState();
+  State<calendarPage> createState() => _calendarPageState();
 }
 
-class _calenderPageState extends State<calenderPage> {
+class _calendarPageState extends State<calendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

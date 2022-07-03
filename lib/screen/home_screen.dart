@@ -1,17 +1,26 @@
-import 'package:amugeona/calender_scheduler/calender_page.dart';
 import 'package:amugeona/const/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../calendar_scheduler/calendar_page.dart';
+
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final selectedDate = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,77 +38,68 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onHeartPressed() {
-    showRoundedDatePicker(
+  onHeartPressed() async {
+    const CalendarDateTextStyle = TextStyle(
+        fontSize: 16.0,
+        color: Colors.black54,
+        fontFamily: "Sunflower",
+        fontWeight: FontWeight.w500);
+    const CalendarMainTextStyle = TextStyle(
+      fontSize: 30.0,
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+      fontFamily: "Sunflower",
+    );
+    const CalendarSubTextStyle = TextStyle(
+      fontSize: 25.0,
+      color: PRIMARY_COLOR,
+      fontFamily: "Sunflower",
+      fontWeight: FontWeight.w700,
+    );
+    const CalendarButtonTextStyle = TextStyle(
+      fontSize: 20.0,
+      color: Colors.black54,
+      fontWeight: FontWeight.w700,
+      fontFamily: "Sunflower",
+    );
+    DateTime? selectedDate = await showRoundedDatePicker(
       context: context,
+      fontFamily: "Sunflower",
       initialDate: DateTime.now(),
       firstDate: DateTime(1997),
       lastDate: DateTime.now(),
       imageHeader: const AssetImage("asset/img/date_picker_image.jpg"),
       description: "처음 만난 날짜를 선택해주세요.",
       styleDatePicker: MaterialRoundedDatePickerStyle(
-        textStyleDayButton: const TextStyle(
-          fontSize: 30.0,
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-        ),
-        textStyleYearButton: const TextStyle(
-          fontSize: 30.0,
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-        ),
+        textStyleDayButton: CalendarMainTextStyle,
+        textStyleYearButton: CalendarMainTextStyle,
         paddingDateYearHeader:
             const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-        textStyleMonthYearHeader: const TextStyle(
-          fontSize: 28,
-          color: PRIMARY_COLOR,
-          fontWeight: FontWeight.bold,
-        ),
+        textStyleMonthYearHeader: CalendarSubTextStyle,
         sizeArrow: 20,
         colorArrowNext: PRIMARY_COLOR,
         colorArrowPrevious: PRIMARY_COLOR,
         paddingMonthHeader: const EdgeInsets.symmetric(vertical: 23),
-        textStyleDayHeader: const TextStyle(
-          fontSize: 15.0,
+        textStyleDayHeader: CalendarSubTextStyle.copyWith(fontSize: 20.0),
+        textStyleCurrentDayOnCalendar: CalendarDateTextStyle.copyWith(
           color: PRIMARY_COLOR,
-          fontWeight: FontWeight.w900,
         ),
-        textStyleCurrentDayOnCalendar: const TextStyle(
-          fontSize: 16,
-          color: PRIMARY_COLOR,
-          fontWeight: FontWeight.bold,
-        ),
-        textStyleDayOnCalendar: TextStyle(
-          fontSize: 16.0,
-          color: Colors.black.withOpacity(0.8),
-          fontWeight: FontWeight.w400,
-        ),
-        textStyleDayOnCalendarSelected: const TextStyle(
-          fontSize: 16.0,
+        textStyleDayOnCalendar: CalendarDateTextStyle,
+        textStyleDayOnCalendarSelected: CalendarDateTextStyle.copyWith(
           color: Colors.white,
-          fontWeight: FontWeight.w500,
         ),
-        textStyleDayOnCalendarDisabled: TextStyle(
-          fontSize: 16.0,
-          color: Colors.grey.withOpacity(0.2),
+        textStyleDayOnCalendarDisabled: CalendarDateTextStyle.copyWith(
+          color: Colors.grey.withOpacity(0.3),
         ),
         paddingDatePicker: const EdgeInsets.symmetric(horizontal: 20.0),
         marginLeftArrowPrevious: 16,
         marginTopArrowPrevious: 16,
         marginTopArrowNext: 16,
         marginRightArrowNext: 16,
-        textStyleButtonAction: TextStyle(
-          fontSize: 16.0,
-          color: Colors.black.withOpacity(0.5),
-        ),
-        textStyleButtonPositive: const TextStyle(
-          fontSize: 16.0,
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-        textStyleButtonNegative: TextStyle(
-          fontSize: 16.0,
-          color: Colors.black.withOpacity(0.5),
+        textStyleButtonAction: CalendarButtonTextStyle,
+        textStyleButtonPositive: CalendarButtonTextStyle,
+        textStyleButtonNegative: CalendarButtonTextStyle.copyWith(
+          color: Colors.grey.withOpacity(0.3),
         ),
         decorationDateSelected: const BoxDecoration(
           color: PRIMARY_COLOR,
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print('onDatePressed');
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => calenderPage()),
+      MaterialPageRoute(builder: (context) => calendarPage()),
     );
   }
 }
@@ -149,6 +149,8 @@ class _TopPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+
     return Padding(
       padding: const EdgeInsets.only(
         top: 16.0,
@@ -156,9 +158,18 @@ class _TopPart extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          renderIconButton(
-            onPressed: onHeartPressed,
-            iconData: Icons.favorite,
+          Row(
+            children: [
+              renderIconButton(
+                onPressed: onHeartPressed,
+                iconData: Icons.favorite,
+              ),
+              Text('D+${DateTime(
+                    now.year,
+                    now.month,
+                    now.day,
+                  ).difference(DateTime.now()).inDays + 1}'),
+            ],
           ),
           Row(
             children: [

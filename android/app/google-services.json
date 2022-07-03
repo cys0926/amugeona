@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "520154395288",
+    "project_id": "amugeona-inha",
+    "storage_bucket": "amugeona-inha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520154395288:android:7124c4df7fb1cddb73d6ed",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520154395288-pd5h142q69anealjeu2e14cm89om10t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlw8ScYgEXq7eVPTW31NOOyeIXKOJwEkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520154395288-pd5h142q69anealjeu2e14cm89om10t0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "520154395288-mm9jnhft58dh1j33i7bfhs20ungv41lu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.amugeona"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520154395288:android:344d0cc9d5d0f42573d6ed",
+        "android_client_info": {
+          "package_name": "com.example.amugeona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520154395288-pd5h142q69anealjeu2e14cm89om10t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlw8ScYgEXq7eVPTW31NOOyeIXKOJwEkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520154395288-pd5h142q69anealjeu2e14cm89om10t0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "520154395288-mm9jnhft58dh1j33i7bfhs20ungv41lu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.amugeona"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

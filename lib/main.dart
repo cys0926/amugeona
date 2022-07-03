@@ -17,26 +17,6 @@ void main() async {
     GetMaterialApp(
       theme: ThemeData(
         fontFamily: 'sunflower',
-        textTheme: const TextTheme(
-          headline1: TextStyle(
-            color: Colors.white,
-            fontFamily: 'parisienne',
-            fontSize: 80.0,
-          ),
-          headline2: TextStyle(
-            color: Colors.white,
-            fontSize: 50.0,
-            fontWeight: FontWeight.w700,
-          ),
-          bodyText1: TextStyle(
-            color: Colors.white,
-            fontSize: 30.0,
-          ),
-          bodyText2: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-          ),
-        ),
       ),
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),

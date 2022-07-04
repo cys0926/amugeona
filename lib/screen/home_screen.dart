@@ -1,10 +1,13 @@
+import 'dart:io';
+import 'package:flutter/src/services/message_codec.dart';
 import 'package:amugeona/const/colors.dart';
 import 'package:amugeona/const/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../calendar_scheduler/calendar_page.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -16,11 +19,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  DateTime selectedDate = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
-  );
+  File? pickedImage;
+  int countDDay = 0;
+  String imagePath = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCountDDay();
+    _loadImagePath();
+  }
+
+  _loadImagePath() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      imagePath = (prefs.getString('imagePath') ?? '');
+    });
+  }
+
+  _loadCountDDay() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      countDDay = (prefs.getInt('countDDay') ?? 0);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,32 +50,45 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          const _MainPicture(),
+          _MainPicture(
+            image: File(imagePath),
+          ),
           _TopPart(
-            onHeartPressed: onHeartPressed,
-            onPicturePressed: onPicturePressed,
+            onHeartPressed: setDDay,
+            onPicturePressed: pickImage,
             onDatePressed: onDatePressed,
-            selectedDate: selectedDate,
+            countDDay: countDDay,
           ),
         ],
       ),
     );
   }
 
-  onHeartPressed() async {
+  pickImage() async {
+    XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        imagePath = image.path;
+        prefs.setString('imagePath', imagePath);
+      });
+  }
+
+  setDDay() async {
     DateTime? newSelectedDate = await showRoundedDatePicker(
       context: context,
       fontFamily: "Sunflower",
       initialDate: DateTime.now(),
       firstDate: DateTime(1997),
       lastDate: DateTime.now(),
+      height: MediaQuery.of(context).size.height / 2,
       imageHeader: const AssetImage("asset/img/date_picker_image.jpg"),
       description: "처음 만난 날짜를 선택해주세요.",
       styleDatePicker: MaterialRoundedDatePickerStyle(
         textStyleDayButton: CalendarMainTextStyle,
         textStyleYearButton: CalendarMainTextStyle,
         paddingDateYearHeader:
-            const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         textStyleMonthYearHeader: CalendarSubTextStyle,
         sizeArrow: 20,
         colorArrowNext: PRIMARY_COLOR,
@@ -87,15 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-    if (newSelectedDate != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (newSelectedDate != null)
       setState(() {
-        selectedDate = newSelectedDate;
+        countDDay = DateTime.now().difference(newSelectedDate).inDays.toInt();
+        prefs.setInt('countDDay', countDDay);
       });
-    }
-  }
-
-  void onPicturePressed() {
-    print('onPicturePressed');
   }
 
   void onDatePressed() {
@@ -104,15 +136,30 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _MainPicture extends StatelessWidget {
-  const _MainPicture({Key? key}) : super(key: key);
+  final File? image;
+
+  const _MainPicture({
+    required this.image,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      'asset/img/middle_image.png',
-      color: Colors.white.withOpacity(0.5),
-      colorBlendMode: BlendMode.modulate,
-    );
+    return image?.path == ''
+        ? Image.asset(
+            'asset/img/middle_image.png',
+            color: Colors.white.withOpacity(0.5),
+            colorBlendMode: BlendMode.modulate,
+          )
+        : Image.file(
+            image!,
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
+            alignment: Alignment.center,
+            color: Colors.white.withOpacity(0.9),
+            colorBlendMode: BlendMode.modulate,
+          );
   }
 }
 
@@ -120,20 +167,18 @@ class _TopPart extends StatelessWidget {
   final VoidCallback onDatePressed;
   final VoidCallback onPicturePressed;
   final VoidCallback onHeartPressed;
-  final DateTime selectedDate;
+  final int countDDay;
 
   const _TopPart({
     required this.onPicturePressed,
     required this.onDatePressed,
     required this.onHeartPressed,
-    required this.selectedDate,
+    required this.countDDay,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-
     return Padding(
       padding: const EdgeInsets.only(
         top: 16.0,
@@ -148,11 +193,7 @@ class _TopPart extends StatelessWidget {
                 iconData: Icons.favorite,
               ),
               Text(
-                'D+${DateTime(
-                      now.year,
-                      now.month,
-                      now.day,
-                    ).difference(selectedDate).inDays + 1}',
+                'D+${countDDay + 1}',
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,

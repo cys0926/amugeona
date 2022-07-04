@@ -21,13 +21,14 @@ class Calender extends StatelessWidget {
         weekendStyle: TextStyle(color: Colors.redAccent),
       ),
       calendarStyle: const CalendarStyle(
-          selectedTextStyle: TextStyle(
-            color: Colors.indigo,
-            fontSize: 30.0,
-          ),
-          todayTextStyle: TextStyle(color: Colors.teal),
-          weekendTextStyle: TextStyle(color: Colors.redAccent),
-          defaultTextStyle: TextStyle(color: Colors.black)),
+        selectedTextStyle: TextStyle(
+          color: Colors.indigo,
+          fontSize: 30.0,
+        ),
+        todayTextStyle: TextStyle(color: Colors.teal),
+        weekendTextStyle: TextStyle(color: Colors.redAccent),
+        defaultTextStyle: TextStyle(color: Colors.black),
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:amugeona/const/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import '../calendar_scheduler/calendar_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         textStyleDayButton: CalendarMainTextStyle,
         textStyleYearButton: CalendarMainTextStyle,
         paddingDateYearHeader:
-        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
         textStyleMonthYearHeader: CalendarSubTextStyle,
         sizeArrow: 20,
         colorArrowNext: PRIMARY_COLOR,
@@ -85,9 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-    setState(() {
-      selectedDate = newSelectedDate!;
-    });
+
+    if (newSelectedDate != null) {
+      setState(() {
+        selectedDate = newSelectedDate;
+      });
+    }
   }
 
   void onPicturePressed() {
@@ -95,10 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onDatePressed() {
-   Get.to(calendarPage());
+    Get.to(CalendarPage());
   }
 }
-
 
 class _MainPicture extends StatelessWidget {
   const _MainPicture({Key? key}) : super(key: key);

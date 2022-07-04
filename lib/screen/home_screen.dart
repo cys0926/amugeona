@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         textStyleDayButton: CalendarMainTextStyle,
         textStyleYearButton: CalendarMainTextStyle,
         paddingDateYearHeader:
-        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
         textStyleMonthYearHeader: CalendarSubTextStyle,
         sizeArrow: 20,
         colorArrowNext: PRIMARY_COLOR,
@@ -87,10 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-    if(newSelectedDate != null){setState(() {
-
-      selectedDate = newSelectedDate;
-    });}
+    if (newSelectedDate != null) {
+      setState(() {
+        selectedDate = newSelectedDate;
+      });
+    }
   }
 
   void onPicturePressed() {
@@ -98,10 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onDatePressed() {
-   Get.to(CalendarPage());
+    Get.to(CalendarPage());
   }
 }
-
 
 class _MainPicture extends StatelessWidget {
   const _MainPicture({Key? key}) : super(key: key);

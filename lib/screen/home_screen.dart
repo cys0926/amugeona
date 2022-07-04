@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/src/services/message_codec.dart';
 import 'package:amugeona/const/colors.dart';
 import 'package:amugeona/const/fonts.dart';
 import 'package:flutter/material.dart';

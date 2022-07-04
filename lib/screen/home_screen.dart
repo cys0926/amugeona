@@ -9,6 +9,7 @@ import '../calendar_scheduler/calendar_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     Key? key,
@@ -63,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
 
   pickImage() async {
     XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);

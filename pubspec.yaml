@@ -30,7 +30,6 @@ dependencies:
 
   flutter:
     sdk: flutter
-  get: ^4.6.5
   flutter_localizations:
     sdk: flutter
 
